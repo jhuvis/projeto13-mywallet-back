@@ -205,7 +205,7 @@ server.post('/entrada', async (req, res) => {
   });
   
   server.post('/status', async (req, res) => {
-    const { token } = req.headers;
+    const token = req.headers.authorization?.replace('Bearer ', '');
     const lastStatus = Date.now();
     try {
       const u = await db.collection('sessions').findOne({token : token });
@@ -241,7 +241,7 @@ server.post('/entrada', async (req, res) => {
       console.error(error);
     }
     
-  }, 400000);
+  }, 15000);
 
 
 server.listen(5000, () => {
